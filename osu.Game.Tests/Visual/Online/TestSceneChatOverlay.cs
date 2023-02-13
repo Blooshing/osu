@@ -532,8 +532,8 @@ namespace osu.Game.Tests.Visual.Online
                 testChannel1.RemoveMessagesFromUser(testUser.Id);
             });
         }
-
         [Test]
+<<<<<<< Updated upstream
         public void TestChatReport()
         {
             AddStep("Show overlay with channel", () =>
@@ -556,6 +556,33 @@ namespace osu.Game.Tests.Visual.Online
         }
 
         [Test]
+=======
+        public void ReportChatMessage()
+        {
+
+            AddStep("setup API", () => ((DummyAPIAccess)API).HandleRequest += req =>
+            {
+                switch (req)
+                {
+                    case CommentReportRequest report:
+                        Scheduler.AddDelayed(report.TriggerSuccess, 1000);
+                        return true;
+                }
+
+                return false;
+            });
+        }
+        public Drawable CreateContent() => new PopoverContainer
+        {
+            RelativeSizeAxes = Axes.Both,
+            Child = new CommentReportButton(new Comment { User = new APIUser { Username = "Someone" } })
+            {
+                Anchor = Anchor.Centre,
+                Origin = Anchor.Centre,
+                Scale = new Vector2(2f),
+            }.With(b => Schedule(b.ShowPopover)),
+        };
+>>>>>>> Stashed changes
         public void TestTextBoxSavePerChannel()
         {
             var testPMChannel = new Channel(testUser);
@@ -600,6 +627,9 @@ namespace osu.Game.Tests.Visual.Online
                 return listingItems.Count() == 1 && listingItems.Single().Channel == testChannel2;
             });
         }
+
+        [Test]
+
 
         private void joinTestChannel(int i)
         {

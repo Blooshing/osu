@@ -24,7 +24,11 @@ namespace osu.Game.Localisation
         /// </summary>
         public static LocalisableString MentionUser => new TranslatableString(getKey(@"mention_user"), @"Mention");
 
+<<<<<<< Updated upstream
         public static LocalisableString ReportUser => new TranslatableString(getKey(@"report_user"), @"Report");
+=======
+        ///public static LocalisableString ReportUser => new TranslatableString(getKey(@"report_user"), @"Report");
+>>>>>>> Stashed changes
 
         private static string getKey(string key) => $"{prefix}:{key}";
     }

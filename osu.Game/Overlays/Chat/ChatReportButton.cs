@@ -14,7 +14,10 @@ using osu.Game.Graphics.UserInterface;
 using osu.Game.Online.API;
 using osu.Game.Online.API.Requests;
 using osu.Game.Online.API.Requests.Responses;
+<<<<<<< Updated upstream
 using osu.Game.Online.Chat;
+=======
+>>>>>>> Stashed changes
 using osu.Game.Overlays.Comments;
 using osu.Game.Resources.Localisation.Web;
 using osuTK;

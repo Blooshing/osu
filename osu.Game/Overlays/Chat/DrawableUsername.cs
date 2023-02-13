@@ -22,6 +22,7 @@ using osu.Game.Localisation;
 using osu.Game.Online.API;
 using osu.Game.Online.API.Requests.Responses;
 using osu.Game.Online.Chat;
+using osu.Game.Overlays.Comments;
 using osu.Game.Resources.Localisation.Web;
 using osuTK;
 using osuTK.Graphics;
@@ -154,9 +155,9 @@ namespace osu.Game.Overlays.Chat
                     return Array.Empty<MenuItem>();
 
                 List<MenuItem> items = new List<MenuItem>
-                {
-                    new OsuMenuItem(ContextMenuStrings.ViewProfile, MenuItemType.Highlighted, openUserProfile)
-                };
+        {
+            new OsuMenuItem(ContextMenuStrings.ViewProfile, MenuItemType.Highlighted, openUserProfile)
+        };
 
                 if (!user.Equals(api.LocalUser.Value))
                     items.Add(new OsuMenuItem(UsersStrings.CardSendMessage, MenuItemType.Standard, openUserChannel));
@@ -167,6 +168,8 @@ namespace osu.Game.Overlays.Chat
                     {
                         currentChannel.Value.TextBoxMessage.Value += $"@{user.Username} ";
                     }));
+
+
                 }
 
                 if (currentChannel?.Value != null && !user.Equals(api.LocalUser.Value))

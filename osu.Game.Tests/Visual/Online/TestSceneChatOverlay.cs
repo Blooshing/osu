@@ -12,6 +12,7 @@ using JetBrains.Annotations;
 using NUnit.Framework;
 using osu.Framework.Allocation;
 using osu.Framework.Bindables;
+using osu.Framework.Extensions;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
 using osu.Framework.Input;
@@ -30,6 +31,8 @@ using osu.Game.Overlays.Chat.Listing;
 using osu.Game.Overlays.Chat.ChannelList;
 using osuTK;
 using osuTK.Input;
+using osu.Game.Graphics.UserInterfaceV2;
+using osu.Game.Graphics.Sprites;
 
 namespace osu.Game.Tests.Visual.Online
 {
@@ -531,6 +534,28 @@ namespace osu.Game.Tests.Visual.Online
         }
 
         [Test]
+        public void TestChatReport()
+        {
+            AddStep("Show overlay with channel", () =>
+            {
+                chatOverlay.Show();
+                channelManager.CurrentChannel.Value = channelManager.JoinChannel(testChannel1);
+            });
+
+            AddAssert("Overlay is visible", () => chatOverlay.State.Value == Visibility.Visible);
+            waitForChannel1Visible();
+
+            AddStep("Show report popover", () => this.ChildrenOfType<DrawableUsername>().First().ShowPopover());
+
+            AddStep("Try to report", () =>
+            {
+                var btn = this.ChildrenOfType<ReportChatPopover>().Single().ChildrenOfType<RoundedButton>().Single();
+                InputManager.MoveMouseTo(btn);
+                InputManager.Click(MouseButton.Left);
+            });
+        }
+
+        [Test]
         public void TestTextBoxSavePerChannel()
         {
             var testPMChannel = new Channel(testUser);
@@ -680,6 +705,7 @@ namespace osu.Game.Tests.Visual.Online
                     : new DrawableChannel(newChannel);
             }
         }
+        
 
         private partial class SlowLoadingDrawableChannel : DrawableChannel
         {
